@@ -1,6 +1,6 @@
 const BASE_PATH =
     process.env.NODE_ENV === "production"
-        ? "https://port-0-yj-project4-back-3prof2lll07acig.sel4.cloudtype.appnp"
+        ? "https://port-0-yj-project4-back-3prof2lll07acig.sel4.cloudtype.app"
         : "http://localhost:8080";
 
 export async function rentalNotices() {
