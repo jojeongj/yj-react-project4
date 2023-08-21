@@ -7,6 +7,8 @@ import RentalNotice from "./app/RentalNotice";
 import RentalNoticeWrite from "./app/RentalNoticeWrite";
 import RentalNoticeDetail from "./app/RentalNoticeDetail";
 import SignUp from "./app/SignUp";
+import SignIn from "./app/SignIn";
+import KakaoConfirm from "./components/socials/KakaoConfirm";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
+      },
+      {
+        path: "social/kakao",
+        element: <KakaoConfirm />,
       },
       {
         path: "information",

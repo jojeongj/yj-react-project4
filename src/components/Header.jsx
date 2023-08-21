@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
 import LogoAsset from "./asset/LogoAsset";
 import SearchAsset from "./asset/SearchAsset";
+import useUser from "../hooks/useUser";
+import { logout } from "../api";
 
 const GNB = [
-  { mainTitle: "공연안내", subTitle: "Performance", link: "/information" },
-  { mainTitle: "공간 대관안내", subTitle: "Rental", link: "/rental" },
-  { mainTitle: "맴버십", subTitle: "Membership", link: "/membership" },
-  { mainTitle: "아카데미", subTitle: "Academy", link: "/academy" },
-  { mainTitle: "커뮤니티", subTitle: "Community", link: "/community" },
-  { mainTitle: "대구엑스포", subTitle: "Contact", link: "/contact" },
+  { mainTitle: "공연안내", subTitle: "Performance", link: "./information" },
+  { mainTitle: "공연 대관안내", subTitle: "Rental", link: "./rental" },
+  { mainTitle: "멤버쉽", subTitle: "Membership", link: "./membership" },
+  { mainTitle: "아카데미", subTitle: "Academy", link: "./academy" },
+  { mainTitle: "커뮤니티", subTitle: "Community", link: "./community" },
+  { mainTitle: "대구엑스포", subTitle: "Contact", link: "./contact" },
 ];
 export default function Header() {
+  const { isLoggedIn, user, refetch } = useUser();
+  const onLogout = async () => {
+    await logout();
+    alert("로그아웃");
+    refetch();
+  };
+
   return (
     <div className="w-full flex justify-center h-header-height shadow-md">
       {/* 좌우 여백을 위한 박스 */}
@@ -37,13 +46,28 @@ export default function Header() {
               <SearchAsset />
             </div>
             <div>Home</div>
-            <div>login</div>
-            <Link to="/signup">
-              <div>join</div>
-            </Link>
+            {isLoggedIn === "true" ? (
+              <>
+                <div>{user.username}님</div>
+                <div className="w-8 h-8 rounded-full bg-slate-900 overflow-hidden">
+                  <img src={user.avatar} alt="profile" />
+                </div>
+                <div onClick={onLogout}>logout</div>
+              </>
+            ) : (
+              <>
+                <Link to="/signin">
+                  <div>Login</div>
+                </Link>
+                <Link to="/signup">
+                  <div>Join</div>
+                </Link>
+              </>
+            )}
+
             <select
               size="sm"
-              className="border border-neutral-300 px-2 text-sm rounded-sm py-1"
+              className="border border-neutral-300 text-sm rounded-sm px-2 py-1"
             >
               <option>한국어</option>
               <option>English</option>
